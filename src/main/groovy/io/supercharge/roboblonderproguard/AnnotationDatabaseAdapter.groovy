@@ -26,9 +26,11 @@ public class AnnotationDatabaseAdapter extends GenericVisitorAdapter<Void, Void>
                 NameExpr scope = n.scope as NameExpr
 
                 if (scope.name == "methodSet" || scope.name == "constructorSet" || scope.name == "classesContainingInjectionPointsSet" || scope.name == "injectedClasses") {
-                    if (firstArg.value.startsWith("<init>:") || firstArg.value.startsWith("init:")) {
-                        firstArg.value.replace("<init>:", "").replace("init:", "").split(":").each { className ->
-                            referencedClassNames += className
+                    if (firstArg.value.contains(":")) {
+                        firstArg.value.split(":").eachWithIndex { className, i ->
+                            if (i != 0 || (scope.name != "methodSet" && scope.name != "constructorSet")) {
+                                referencedClassNames += className
+                            }
                         }
                     } else if (firstArg.value != "<init>"){
                         referencedClassNames += firstArg.value

@@ -28,12 +28,6 @@ public class RoboBlenderProguardPlugin implements Plugin<Project> {
         }
 
         project.afterEvaluate {
-            if (!project.ext.has("roboBlenderPackageName")) {
-                throw new ProjectConfigurationException("You must add `roboBlenderPackageName` to the `project` as an extension property!", null)
-            }
-
-            def roboBlenderPackageName = project.ext.roboBlenderPackageName
-
             project.android.buildTypes.all { buildType ->
                 if (variants == "applicationVariants" && buildType.minifyEnabled) {
                     buildType.proguardFile(rulesFile)
@@ -49,6 +43,9 @@ public class RoboBlenderProguardPlugin implements Plugin<Project> {
 
                 def aptOutputDir = usesAndroidApt ? project.file(new File(project.buildDir, "generated/source/apt"))
                         : project.file(new File(project.buildDir, "intermediates/classes"))
+
+                def roboBlenderCompilerArg = javaCompile.options.compilerArgs.find { it.toString().startsWith("-AguiceAnnotationDatabasePackageName=") }
+                def roboBlenderPackageName = roboBlenderCompilerArg ? roboBlenderCompilerArg.split("=")[1] : ""
 
                 def aptOutput = new File(aptOutputDir, variant.dirName)
                 def dbFile = new File(aptOutput, roboBlenderPackageName.replace('.', '/') + "/AnnotationDatabaseImpl.java")

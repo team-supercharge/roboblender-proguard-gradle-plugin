@@ -19,14 +19,6 @@ In your apps and library projects, apply the plugin:
 apply plugin: 'io.supercharge.roboblender-proguard-gradle-plugin'
 ```
 
-and specify the package name for the plugin which you will use for the [RoboBlender annotation database](https://github.com/roboguice/roboguice/wiki/RoboBlender-wiki#configuring-roboblender-for-a-large-application-using-libraries):
-
-```groovy
-ext {
-    roboBlenderPackageName = 'package.name.for.annotation.database'
-}
-```
-
 ## Contributing
 
 Please fork this repository and create a pull request

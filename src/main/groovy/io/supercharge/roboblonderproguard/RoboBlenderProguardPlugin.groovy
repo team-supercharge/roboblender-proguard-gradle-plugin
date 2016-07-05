@@ -19,6 +19,8 @@ public class RoboBlenderProguardPlugin implements Plugin<Project> {
             throw new ProjectConfigurationException("The android or android-library plugin must be applied to the project", null)
         }
 
+        def usesAndroidApt = project.plugins.findPlugin("com.neenbedankt.android-apt") || project.plugins.findPlugin("android-apt")
+
         def rulesFile = new File(project.buildDir, "generated/proguard/roboblender_proguard_keeps.pro")
 
         if (variants == "libraryVariants") {
@@ -45,7 +47,9 @@ public class RoboBlenderProguardPlugin implements Plugin<Project> {
 
                 def javaCompile = variant.hasProperty('javaCompiler') ? variant.javaCompiler : variant.javaCompile
 
-                def aptOutputDir = project.file(new File(project.buildDir, "generated/source/apt"))
+                def aptOutputDir = usesAndroidApt ? project.file(new File(project.buildDir, "generated/source/apt"))
+                        : project.file(new File(project.buildDir, "intermediates/classes"))
+
                 def aptOutput = new File(aptOutputDir, variant.dirName)
                 def dbFile = new File(aptOutput, roboBlenderPackageName.replace('.', '/') + "/AnnotationDatabaseImpl.java")
 

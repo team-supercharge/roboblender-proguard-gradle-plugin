@@ -11,7 +11,7 @@ annotation database.
 Add the plugin to `buildScript` `dependencies`:
 ```groovy
 dependencies {
-    classpath 'io.supercharge:roboblender-proguard-gradle-plugin:1.0-SNAPSHOT'
+    classpath 'io.supercharge:roboblender-proguard-gradle-plugin:1.0'
 }
 ```
 

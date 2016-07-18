@@ -4,6 +4,8 @@ With this plugin you can automatically generate the Proguard rules for the [Robo
 annotation database.
 
 
+[![Build Status](https://travis-ci.org/team-supercharge/roboblender-proguard-gradle-plugin.svg?branch=development)](https://travis-ci.org/team-supercharge/roboblender-proguard-gradle-plugin)
+
 ## Usage
 
 Add the plugin to `buildScript` `dependencies`:

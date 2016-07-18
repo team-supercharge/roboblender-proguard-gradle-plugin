@@ -1,5 +1,5 @@
 group 'io.supercharge'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 ext {
     artifactId = 'roboblender-proguard-gradle-plugin'
